@@ -20,10 +20,6 @@ const generateKey = (length) => {
 	return result;
 }
 
-// const session = async (req, res, session_name) => {
-// 	req.session
-// }
-
 module.exports = {
 	generateToken,
 	generateKey

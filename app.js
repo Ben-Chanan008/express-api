@@ -27,7 +27,8 @@ app.use(session({
 }));
 
 app.use('/api/users', routes.register);
-app.use('/api/auth', routes.login)
+app.use('/api/auth', routes.login);
+app.use('/api/categories', routes.categories);
 
 db.sequelize.sync().then(() => {
 	app.listen(PORT, () => {

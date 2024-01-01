@@ -53,5 +53,8 @@ module.exports = (sequelize, DataTypes) => {
 		underscored: true,
 		paranoid: true
 	});
+
+	User.hasOne(Categories);
+
 	return User;
 };
