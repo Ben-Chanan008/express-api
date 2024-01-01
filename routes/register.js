@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 	UserController.getAll(req, res);
 });
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
 	UserController.createUser(req, res);
 });
 

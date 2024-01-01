@@ -5,6 +5,8 @@ const routes = require('./routes');
 const dotenv = require('dotenv');
 const { Buffer } = require('node:buffer');
 const { generateKey } = require('./helpers');
+const session = require('express-session');
+
 
 const buf = Buffer.from('Express-API', 'utf8').toString('base64');
 
@@ -17,6 +19,12 @@ const db = require('./models');
 app.use(cors());
 app.use(express.json({ strict: false }));
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+	secret: 'Express-api',
+	resave: false,
+	saveUninitialized: false,
+}));
 
 app.use('/api/users', routes.register);
 app.use('/api/auth', routes.login)

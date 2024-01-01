@@ -3,7 +3,7 @@ let token;
 const ALPHA_NUM = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 const generateToken = (payload) => {
-	token = jwt.sign(payload, process.env.APP_KEY);
+	token = jwt.sign(payload, process.env.APP_KEY, { expiresIn: '1h' });
 
 	return token;
 }
@@ -19,6 +19,10 @@ const generateKey = (length) => {
 
 	return result;
 }
+
+// const session = async (req, res, session_name) => {
+// 	req.session
+// }
 
 module.exports = {
 	generateToken,
