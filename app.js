@@ -27,10 +27,11 @@ app.use(session({
 }));
 
 app.use('/api/users', routes.register);
-app.use('/api/auth', routes.login);
+app.use('/api/users/auth', routes.login);
 app.use('/api/categories', routes.categories);
+app.use('/api/auth/logout', routes.logout);
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ alter: false }).then(() => {
 	app.listen(PORT, () => {
 		console.log(`Server Running  on ${PORT}`);
 		console.log(`APP_KEY: ${process.env.APP_KEY}`);

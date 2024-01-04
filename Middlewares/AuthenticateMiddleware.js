@@ -1,9 +1,8 @@
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-// const localStorage = window.localStorage;
+const { authTkn } = require('../helpers');
 
 const authenticateUser = async (req, res, next) => {
 	let body = req.body;
@@ -24,8 +23,6 @@ const authenticateUser = async (req, res, next) => {
 							console.log(req.session);
 							req.session.logged_in_user = dataValues;
 							res.status(200).json({ message: `Credentials Matched! Welcome Back at ${moment().format()}`, logged_in_user: req.session.logged_in_user, access_token: authTkn(req) });
-							console.log(req.session.logged_in_user);
-
 							return next();
 						} else
 							res.status(400).json({ message: "Credentials Not Matched! Please provide correct Information" });
@@ -43,30 +40,6 @@ const authenticateUser = async (req, res, next) => {
 			res.status(422).json({ _message: authTkn(req) })
 }
 
-const authTkn = (req) => {
-	let access_token = req.header('auth'),
-		value,
-		message;
-
-	if (access_token) {
-		try {
-			const validTkn = jwt.verify(access_token, process.env.APP_KEY);
-			if (validTkn) {
-				req.token = validTkn;
-				message = { msg: "Token is authorized!", authorized: true, token: req.token };
-			} else
-				message = { msg: "Token is not authorized", authorized: false }
-		} catch (error) {
-			console.log(error);
-		}
-	} else {
-		message = { msg: "Token not provided", _headers: "auth" }
-	}
-
-	return message;
-}
-
 module.exports = {
 	authenticateUser,
-	authTkn
 }

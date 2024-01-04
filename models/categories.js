@@ -2,7 +2,7 @@
 const {
 	Model
 } = require('sequelize');
-const User = require('./user');
+// const { User } = require('../models')
 module.exports = (sequelize, DataTypes) => {
 	class Categories extends Model {
 		/**
@@ -16,17 +16,17 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Categories.init({
 		user_id: {
-			type: DataTypes.BIGINT,
-			allowNull: false,
-			references: {
-				model: User,
-				key: 'id'
-			}
+			type: DataTypes.BIGINT(20),
+			allowNull: true,
+			onDelete: 'cascade',
 		},
 		category: { type: DataTypes.STRING, allowNull: false }
 	}, {
 		sequelize,
+		tableName: 'categories',
 		modelName: 'Categories',
+		underscored: true,
+		paranoid: true
 	});
 
 	return Categories;
