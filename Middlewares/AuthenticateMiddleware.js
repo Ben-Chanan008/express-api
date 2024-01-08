@@ -63,7 +63,7 @@ const authTkn = (req, res) => {
 			}
 		} catch (error) {
 			console.log(error);
-			res.status(400).json({ msg: "Token is has expired", authorized: false })
+			res.status(400).json({ msg: "Token has expired", authorized: false })
 		}
 	} else {
 		res.status(422).json({ msg: "Token not provided", _headers: "auth" })
